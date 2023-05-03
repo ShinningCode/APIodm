@@ -27,4 +27,4 @@ A continuación se presenta el diagrama de secuencia correspondiente a nuestro p
 El diagrama de clases con los modelos de nuestro proyecto se muestra a continuación:
 
 [insertar diagrama de clases aquí]
-
+.
