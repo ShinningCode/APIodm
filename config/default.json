@@ -1,0 +1,5 @@
+{
+    "secret":{
+        "key":"27d5ac6e0f48025c34d5a78157044129"
+    },"dbChain":"mongodb+srv://scrumadmin:gKjVSwNqbE2HHdqf@cluster0.eozmogi.mongodb.net/?retryWrites=true&w=majority"
+}
