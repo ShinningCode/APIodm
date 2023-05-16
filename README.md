@@ -20,9 +20,8 @@ La dirección del servidor web de producción se encuentra en: dirección_del_se
 
 ### Diagrama de secuencia
 A continuación se presenta el diagrama de secuencia correspondiente a nuestro proyecto:
-![Secuencia AGILE](https://github.com/ShinningCode/APIodm/assets/119389819/3b8f4db2-9995-4b2f-a069-78aa096f10f0)
+![Diagrama de Secuencia](https://github.com/ShinningCode/APIodm/assets/119389819/3b8f4db2-9995-4b2f-a069-78aa096f10f0)
 
-[insertar diagrama de secuencia aquí]
 
 ### Diagrama de clases
 El diagrama de clases con los modelos de nuestro proyecto se muestra a continuación:
