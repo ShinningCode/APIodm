@@ -26,5 +26,4 @@ A continuación se presenta el diagrama de secuencia correspondiente a nuestro p
 ### Diagrama de clases
 El diagrama de clases con los modelos de nuestro proyecto se muestra a continuación:
 
-[insertar diagrama de clases aquí]
-.
+![Diagrama de clases](SCRUM_proyecto_reto.drawio.png)
