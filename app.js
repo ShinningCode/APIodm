@@ -13,6 +13,11 @@ const cors = require('cors');
 //rutas de routers
 const indexRouter = require('./routes/index');
 const teamMemberRouter = require('./routes/teamMember');
+const backlogsRouter = require('./routes/backlogs');
+const boardsRouter = require('./routes/boards');
+const columnsRouter = require('./routes/columns');
+const proyectRecordRouter = require('./routes/proyectRecords');
+const userHistoryRouter = require('./routes/userHistory');
 
 
 //jwt
@@ -60,7 +65,12 @@ app.use(cors({
 
 //declaración de rutas
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/teamMember', teamMemberRouter);
+app.use('/backlogs',backlogsRouter);
+app.use('/boards',boardsRouter);
+app.use('/colums',columnsRouter);
+app.use('/proyectRecords',proyectRecordRouter);
+app.use('/userHistory',userHistoryRouter);
 
 
 
