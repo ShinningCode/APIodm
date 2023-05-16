@@ -21,7 +21,6 @@ const jwtKey = config.get('secret.key')
 const uri = config.get('dbChain');
 mongoose.connect(uri);
 const db = mongoose.connection;
-//app
 const app = express();
 
 db.on('open',()=>{
@@ -48,11 +47,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(i18n.init);
 
+app.use(cors({
+  origin:"http://127.0.0.1:8000"
+}));
 
 //protecion de rutas
 
 //app.use(expressjwt({secret:jwtKey,algorithms:['HS256']}))
 //   .unless({path:["/"]})
+
 
 //declaración de rutas
 app.use('/', indexRouter);
