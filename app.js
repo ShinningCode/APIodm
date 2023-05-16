@@ -7,11 +7,12 @@ const mongoose = require('mongoose');
 const {expressjwt} = require('express-jwt');
 const config = require('config');
 const i18n = require('i18n');
+const cors = require('cors');
 
 
 //rutas de routers
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const teamMemberRouter = require('./routes/teamMember');
 
 
 //jwt

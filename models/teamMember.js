@@ -12,17 +12,24 @@ const schema = mongoose.Schema({
     __rol:{
         type:String,
         enum:['ScrumMaster','ProductOwner','Developer']
-    }
+    },
+    __password:String,
+    __salt:String,
+    __email:String
+
 });
 
 class TeamMember{
-    constructor(name,lastName,curp,rfc,skills,rol){
+    constructor(name,lastName,curp,rfc,skills,rol,password,salt,email){
         this.__name = name;
         this.__lastName = lastName;
         this.__curp = curp;
         this.__rfc = rfc;
         this.__skills = skills;
         this.__rol = rol;
+        this.__password = password;
+        this.__email = email;
+        this.__salt = salt;
     }
     get name() {
         return this._name;
@@ -70,6 +77,30 @@ class TeamMember{
 
     set rol(value) {
         this._rol = value;
+    }
+
+    get email(){
+        return this._email;
+    }
+
+    set email(v){
+        this._email = v;
+    }
+
+    get password(){
+        return this._password;
+    }
+
+    set password(v){
+        this._password = v;
+    }
+
+    get salt(){
+        return this._salt;
+    }
+
+    set salt(v){
+        this._salt = v;
     }
 };
 schema.loadClass(TeamMember);
