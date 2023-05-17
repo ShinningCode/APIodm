@@ -4,10 +4,10 @@ const Backlog = require('../models/backlogs');
 
 function list(req, res, next) {
     Column.find().then(objs => res.status(200).json({
-        message: res.__('ok.column'),
+        message: res.__('Column.list'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.column'),
+        message: res.__('Column.noInfo'),
         obj: ex
     }));
 }
@@ -15,10 +15,10 @@ function list(req, res, next) {
 function index(req, res, next) {
     const id = req.params.id;
     Column.findOne({"_id":id}).then(obj => res.status(200).json({
-        message: res.__('ok.column'), 
+        message: res.__('Column.found'), 
         obj: obj
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.column'),
+        message: res.__('Column.noFound'),
         obj:ex
     }));
 }
@@ -38,10 +38,10 @@ async function create(req, res, next){
     });
 
     column.save().then(obj => res.status(200).json({
-        message: res.__('ok.column'),
+        message: res.__('Column.created'),
         obj:obj
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.column'),
+        message: res.__('Column.noCreated'),
         ex:ex
     }));
 }
@@ -57,10 +57,10 @@ function replace(req, res, next) {
     
     Column.findOneAndUpdate({"_id":id},Column,{new : true})
             .then(obj => res.status(200).json({
-                message: res.__('ok.column'),
+                message: res.__('Column.replaced'),
                 obj: obj
             })).catch(ex => res.status(500).json({
-                message: res.__('bad.column'),
+                message: res.__('Column.noReplaced'),
                 obj:ex
             }));
 }
@@ -78,10 +78,10 @@ function update(req, res, next) {
 
     Column.findOneAndUpdate({"_id":id}, Column)
         .then(obj => res.status(200).json({
-            message: res.__('ok.column'),
+            message: res.__('Column.updated'),
             obj: obj
         })).catch(ex => res.status(500).json({
-            message: res.__('bad.column'),
+            message: res.__('Column.noUpdated'),
             obj: ex
         }))
 
@@ -91,10 +91,10 @@ function destroy(req, res, next) {
     const id = req.params.id;
     Column.findByIdAndRemove({"_id":id})
             .then(obj => res.status(200).json({
-                message: res.__('ok.column'),
+                message: res.__('Column.deleted'),
                 obj:obj
             })).catch(ex => res.status(500).json({
-                message: res.__('bad.column'),
+                message: res.__('Column.noDeleted'),
                 obj:ex
             }));
 }
@@ -107,10 +107,10 @@ async function addHistories(req, res, next){
     let history = await History.findOne({"_id": historyId});
     column.stories.push(history);
     column.save().then(obj => res.status(200).json({
-        message:'History added',
+        message:'History.added',
         obj:obj
     })).catch(err => res.status(500).json({
-        message:'History not added',
+        message:'History.noAdded',
         ex:err
     }));
 
@@ -133,22 +133,22 @@ async function deleteHistory(req, res, next){
     try{
         column.stories.splice(index,1);
         column.save().then(obj => res.status(200).json({
-            message:'History deleted',
+            message:'History.deleted',
             obj:obj
         }))
     }catch{
         err => res.status(500).json({
-            message:'History not deleted',
+            message:'History.noDeleted',
             ex:err
         })
     }
 
 
     column.save().then(obj => res.status(200).json({
-        message:'History deleted',
+        message:'History.deleted',
         obj:obj
     })).catch(err => res.status(500).json({
-        message:'History not deleted',
+        message:'History.noDeleted',
         ex:err
     }));
 }
