@@ -24,7 +24,7 @@ function index(req, res, next) {
 
 function create(req, res, next) {
     let name = req.body.name;
-    let columna = req.body.columna;
+    let columna = req.body.columns;
 
     let board = new Board({
         name: name,
@@ -43,7 +43,7 @@ function create(req, res, next) {
 function replace(req, res, next) {
     const id = req.params.id;
     let name = req.body.name ? req.body.name : "";
-    let columna = req.body.columna ? req.body.columna: "";
+    let columna = req.body.columns ? req.body.columns: "";
 
     let rol = new Object({
         _name: name,
@@ -63,7 +63,7 @@ function replace(req, res, next) {
 function update(req, res, next) {
    const id = req.params.id;
    let name = req.body.name;
-   let columna = req.body.columna;
+   let columna = req.body.columns;
 
    let board = new Object();
 
@@ -73,7 +73,7 @@ function update(req, res, next) {
     if(columna)
         board._columna = columna
 
-    Board.findOneAndUpdate({"_id":id}, user, {new:true})
+    Board.findOneAndUpdate({"_id":id}, board, {new:true})
         .then(obj => res.status(200).json({
             message: res.__('ok.board'),
             obj: obj
