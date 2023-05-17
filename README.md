@@ -11,7 +11,6 @@
 
 Componentes de seguridad (JWT y almacenamiento seguro de datos)
 Manejo de ambientes
-Matriz RBAC
 Internacionalización y localización
 También se han construido pruebas utilizando JEST y Super Test para cada ruta del proyecto, cumpliendo con la regla del 50%. Adicionalmente, la aplicación se ha comunicado con el PaaS de Mongodb Atlas.
 
