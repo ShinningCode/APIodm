@@ -1,6 +1,6 @@
 const express = require('express');
 const Column = require('../models/column');
-const UserHistory = require('../models/userHistory');
+const Backlog = require('../models/backlogs');
 
 function list(req, res, next) {
     Column.find().then(objs => res.status(200).json({
@@ -23,15 +23,18 @@ function index(req, res, next) {
     }));
 }
 
-async function create(req, res, next) {
+
+async function create(req, res, next){
     const title = req.body.title;
-    const historyId = req.body.historyId;   
-     
-    let stories = await UserHistory.findOne({"_id":historyId})
+    const historyId = req.body.historyId;
+    const histories = [];
+    let history = await Backlog.findOne({"_id": historyId});
+
+    histories.push(history);
 
     let column = new Column({
         title:title,
-        stories:stories,
+        stories:histories
     });
 
     column.save().then(obj => res.status(200).json({
@@ -94,6 +97,60 @@ function destroy(req, res, next) {
                 message: res.__('bad.column'),
                 obj:ex
             }));
+}
+
+async function addHistories(req, res, next){
+    let columnId = req.body.columnId;
+    let historyId = req.body.historyId;
+
+    let column = await Column.findOne({"_id": columnId});
+    let history = await History.findOne({"_id": historyId});
+    column.stories.push(history);
+    column.save().then(obj => res.status(200).json({
+        message:'History added',
+        obj:obj
+    })).catch(err => res.status(500).json({
+        message:'History not added',
+        ex:err
+    }));
+
+}
+
+async function deleteHistory(req, res, next){
+    let columnId = req.body.columnId;
+    let historyId = req.body.historyId;
+
+    let column = await Column.findOne({"_id": columnId});
+    let history = await History.findOne({"_id": historyId});
+
+    let index = 0;
+    //Se comparan los ids del arreglo con el recibido por el body, si coincide se elimina
+    for(let i of column.stories){
+        if (column.stories[i]._id == historyId){
+            index = i;
+        }
+    }
+    try{
+        column.stories.splice(index,1);
+        column.save().then(obj => res.status(200).json({
+            message:'History deleted',
+            obj:obj
+        }))
+    }catch{
+        err => res.status(500).json({
+            message:'History not deleted',
+            ex:err
+        })
+    }
+
+
+    column.save().then(obj => res.status(200).json({
+        message:'History deleted',
+        obj:obj
+    })).catch(err => res.status(500).json({
+        message:'History not deleted',
+        ex:err
+    }));
 }
 
 module.exports = { 
