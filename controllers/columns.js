@@ -133,22 +133,22 @@ async function deleteHistory(req, res, next){
     try{
         column.stories.splice(index,1);
         column.save().then(obj => res.status(200).json({
-            message:'History.deleted',
+            message:res.__('History.deleted'),
             obj:obj
         }))
     }catch{
         err => res.status(500).json({
-            message:'History.noDeleted',
+            message:res.__('History.noDeleted'),
             ex:err
         })
     }
 
 
     column.save().then(obj => res.status(200).json({
-        message:'History.deleted',
+        message:res.__('History.deleted'),
         obj:obj
     })).catch(err => res.status(500).json({
-        message:'History.noDeleted',
+        message:res.__('History.noDeleted'),
         ex:err
     }));
 }

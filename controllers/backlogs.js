@@ -7,7 +7,7 @@ async function getAllBacklog(req, res){
         res.status(200).json(backlogs);
     } catch(err){
         res.status(500).json({
-            err: 'Backlog.unreachable'
+            err: res.__('Backlog.unreachable')
         });
     }
 }
@@ -19,7 +19,7 @@ async function createBacklog(req,res){
         const savedBacklogItem = await backlogs.save();
         res.status(201).json(savedBacklogItem);
     } catch(err){
-        res.status(500).json({ error: 'Backlog.noCreated' });
+        res.status(500).json({ error: res.__('Backlog.noCreated') });
     }
 }
 
@@ -36,7 +36,7 @@ async function updateBacklog(req, res) {
       res.status(200).json(updatedBacklog);
     } catch (error) {
       res.status(500).json({ 
-        error: 'Backlog.noUpdated'
+        error: res.__('Backlog.noUpdated')
     });
     }
   }
@@ -46,7 +46,7 @@ async function updateBacklog(req, res) {
       await BacklogItem.findByIdAndRemove(id);
       res.status(204).end();
     } catch (error) {
-      res.status(500).json({ error: 'Backlog.noDeleted' });
+      res.status(500).json({ error: res.__('Backlog.noDeleted') });
     }
   }
   
