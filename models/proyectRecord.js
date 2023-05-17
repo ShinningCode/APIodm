@@ -1,103 +1,61 @@
 const mongoose = require('mongoose');
+const { accessibleFieldsPlugin } = require('@casl/mongoose');
 
-const schema = mongoose.Schema({
-    __name:String,
-    __requestDate:Date,
-    __startDate:Date,
-    __proyectManager:{
-        type:mongoose.Schema.ObjectId,
-        ref:'TeamMember'
+const schema = mongoose.Schema(
+  {
+    name: String,
+    requestDate: Date,
+    startDate: Date,
+    projectManager: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'TeamMember'
     },
-    __productOwner:{
-        type:mongoose.Schema.ObjectId,
-        ref:'TeamMember'
+    productOwner: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'TeamMember'
     },
-    __DevelopmentTeam:[
-        {
-            type:mongoose.Schema.ObjectId,
-            ref:'TeamMember'
-        }
+    developmentTeam: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'TeamMember'
+      }
     ],
-    __description:String,
-    __status:Boolean
-});
+    description: String,
+    status: Boolean
+  },
+  { timestamps: true }
+);
 
 class ProjectRecord {
-    constructor(name, requestDate, startDate, projectManager, productOwner, developmentTeam, description, status) {
-        this.__name = name;
-        this.__requestDate = requestDate;
-        this.__startDate = startDate;
-        this.__projectManager = projectManager;
-        this.__productOwner = productOwner;
-        this.__developmentTeam = developmentTeam;
-        this.__description = description;
-        this.__status = status;
+  static async createAbilityFor(user) {
+    const { AbilityBuilder, Ability } = require('@casl/ability');
+
+    const builder = new AbilityBuilder(Ability);
+
+    // Define user abilities
+    builder.can('read', 'ProjectRecord');
+    builder.can('create', 'ProjectRecord');
+    builder.can('update', 'ProjectRecord');
+    builder.can('delete', 'ProjectRecord');
+
+    // Adjust abilities based on user role or any other logic
+    if (user.role === 'admin') {
+      builder.can('manage', 'ProjectRecord');
     }
 
-    get name() {
-        return this._name;
-    }
+    return builder.build();
+  }
 
-    set name(value) {
-        this._name = value;
-    }
+  static async accessibleBy(ability, action = 'read') {
+    const query = this.find();
+    const permission = ability.can(action, 'ProjectRecord');
+    const fields = permission.fields();
 
-    get requestDate() {
-        return this._requestDate;
-    }
-
-    set requestDate(value) {
-        this._requestDate = value;
-    }
-
-    get startDate() {
-        return this._startDate;
-    }
-
-    set startDate(value) {
-        this._startDate = value;
-    }
-
-    get projectManager() {
-        return this._projectManager;
-    }
-
-    set projectManager(value) {
-        this._projectManager = value;
-    }
-
-    get productOwner() {
-        return this._productOwner;
-    }
-
-    set productOwner(value) {
-        this._productOwner = value;
-    }
-
-    get developmentTeam() {
-        return this._developmentTeam;
-    }
-
-    set developmentTeam(value) {
-        this._developmentTeam = value;
-    }
-
-    get description() {
-        return this._description;
-    }
-
-    set description(value) {
-        this._description = value;
-    }
-
-    get status() {
-        return this._status;
-    }
-
-    set status(value) {
-        this._status = value;
-    }
-};
+    return query.select(fields);
+  }
+}
 
 schema.loadClass(ProjectRecord);
+schema.plugin(accessibleFieldsPlugin);
+
 module.exports = mongoose.model('ProjectRecord', schema);

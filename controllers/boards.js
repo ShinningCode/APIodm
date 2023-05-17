@@ -1,106 +1,176 @@
 const express = require('express');
 const Board = require('../models/board');
+const { AbilityBuilder, Ability } = require('@casl/ability');
+
+function defineAbilitiesFor(user) {
+  const { can, cannot, build } = new AbilityBuilder(Ability);
+
+  if (user.role === 'admin') {
+    can('manage', 'Board');
+  } else {
+    can('read', 'Board');
+    can('create', 'Board');
+    can('update', 'Board', { createdBy: user.id });
+    can('delete', 'Board', { createdBy: user.id });
+  }
+
+  return build();
+}
 
 function list(req, res, next) {
-    Board.find().then(objs => res.status(200).json({
+  const user = req.user;
+  const ability = defineAbilitiesFor(user);
+
+  if (ability.can('read', 'Board')) {
+    Board.find()
+      .then(objs => res.status(200).json({
         message: res.__('ok.board'),
         obj: objs
-    })).catch(ex => res.status(500).json({
+      }))
+      .catch(ex => res.status(500).json({
         message: res.__('bad.board'),
         obj: ex
-    }));
+      }));
+  } else {
+    res.status(403).json({
+      message: res.__('forbidden'),
+      obj: null
+    });
+  }
 }
 
 function index(req, res, next) {
-    const id = req.params.id;
-    Board.findOne({"_id":id}).then(obj => res.status(200).json({
-        message: res.__('ok.board'), 
+  const user = req.user;
+  const ability = defineAbilitiesFor(user);
+  const id = req.params.id;
+
+  if (ability.can('read', 'Board')) {
+    Board.findOne({ "_id": id })
+      .then(obj => res.status(200).json({
+        message: res.__('ok.board'),
         obj: obj
-    })).catch(ex => res.status(500).json({
+      }))
+      .catch(ex => res.status(500).json({
         message: res.__('bad.board'),
-        obj:ex
-    }));
+        obj: ex
+      }));
+  } else {
+    res.status(403).json({
+      message: res.__('forbidden'),
+      obj: null
+    });
+  }
 }
 
 function create(req, res, next) {
-    let name = req.body.name;
-    let columna = req.body.columna;
+  const user = req.user;
+  const ability = defineAbilitiesFor(user);
+  const name = req.body.name;
+  const columna = req.body.columna;
 
-    let board = new Board({
-        name: name,
-        columna: columna
+  if (ability.can('create', 'Board')) {
+    const board = new Board({
+      name: name,
+      columna: columna,
+      createdBy: user.id
     });
 
-    board.save().then(obj => res.status(200).json({
+    board.save()
+      .then(obj => res.status(200).json({
         message: res.__('ok.board'),
-        obj:obj
-    })).catch(ex => res.status(500).json({
+        obj: obj
+      }))
+      .catch(ex => res.status(500).json({
         message: res.__('bad.board'),
-        ex:ex
-    }));
+        ex: ex
+      }));
+  } else {
+    res.status(403).json({
+      message: res.__('forbidden'),
+      obj: null
+    });
+  }
 }
 
 function replace(req, res, next) {
-    const id = req.params.id;
-    let name = req.body.name ? req.body.name : "";
-    let columna = req.body.columna ? req.body.columna: "";
+  const user = req.user;
+  const ability = defineAbilitiesFor(user);
+  const id = req.params.id;
+  const name = req.body.name ? req.body.name : "";
+  const columna = req.body.columna ? req.body.columna : "";
 
-    let rol = new Object({
-        _name: name,
-        _columna: columna
-    });
-    
-    Board.findOneAndUpdate({"_id":id},rol,{new : true})
-            .then(obj => res.status(200).json({
-                message: res.__('ok.board'),
-                obj: obj
-            })).catch(ex => res.status(500).json({
-                message: res.__('bad.board'),
-                obj:ex
-            }));
-}
+  if (ability.can('update', 'Board')) {
+    const board = {
+      name: name,
+      columna: columna
+    };
 
-function update(req, res, next) {
-   const id = req.params.id;
-   let name = req.body.name;
-   let columna = req.body.columna;
-
-   let board = new Object();
-
-   if(name)
-       board._name = name;
-
-    if(columna)
-        board._columna = columna
-
-    Board.findOneAndUpdate({"_id":id}, user, {new:true})
+    Board.findOneAndUpdate({ "_id": id }, board, { new: true })
         .then(obj => res.status(200).json({
             message: res.__('ok.board'),
             obj: obj
-        })).catch(ex => res.status(500).json({
+      }))
+        .catch(ex => res.status(500).json({
             message: res.__('bad.board'),
             obj: ex
-        }))
+      }));
+  } else {
+    res.status(
+        403).json({
+            message: res.__('forbidden'),
+            obj: null});
+        }
+    }
+            
+            function update(req, res, next) {
+            const user = req.user;
+            const ability = defineAbilitiesFor(user);
+            const id = req.params.id;
+            const name = req.body.name;
+            const columna = req.body.columna;
+            
+            if (ability.can('update', 'Board')) {
+            const board = {};
+            if (name) board.name = name;
+        if (columna) board.columna = columna;
 
-}
-
+Board.findOneAndUpdate({ "_id": id }, board, { new: true })
+  .then(obj => res.status(200).json({
+    message: res.__('ok.board'),
+    obj: obj
+  }))
+  .catch(ex => res.status(500).json({
+    message: res.__('bad.board'),
+    obj: ex
+  }));
+} else {
+    res.status(403).json({
+    message: res.__('forbidden'),
+    obj: null
+    });
+    }
+    }
+    
 function destroy(req, res, next) {
+    const user = req.user;
+    const ability = defineAbilitiesFor(user);
     const id = req.params.id;
-    Board.findByIdAndRemove({"_id":id})
-            .then(obj => res.status(200).json({
-                message: res.__('ok.board'),
-                obj:obj
-            })).catch(ex => res.status(500).json({
-                message: res.__('bad.board'),
-                obj:ex
-            }));
-}
-
-module.exports = { 
-    list,
-    index,
-    create,
-    replace,
-    update,
-    destroy
-};
+    
+    if (ability.can('delete', 'Board')) {
+        Board.findByIdAndRemove({ "_id": id })
+        .then(obj => res.status(200).json({
+        //message: res.message: res('ok.board'),
+        obj: obj
+    })).catch(ex => res.status(500).json({
+      //  message: res.('bad.board'),obj: ex
+    }));
+    } else {
+        res.status(403).json({
+        message: res.__('forbidden'),
+        obj: null
+    });
+    }
+    }
+    
+    module.exports = {
+    list,index,create,replace,update,destroy};

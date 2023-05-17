@@ -1,26 +1,26 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    __name:String,
-    __lastName:String,
-    __curp:String,
-    __rfc:String,
-    __skills:{
-        type:String,
-        enum:['Junio','Senior','Master']
+    __name: String,
+    __lastName: String,
+    __curp: String,
+    __rfc: String,
+    __skills: {
+        type: String,
+        enum: ['Junio', 'Senior', 'Master']
     },
-    __rol:{
-        type:String,
-        enum:['ScrumMaster','ProductOwner','Developer']
+    __rol: {
+        type: String,
+        enum: ['ScrumMaster', 'ProductOwner', 'Developer']
     },
-    __password:String,
-    __salt:String,
-    __email:String
+    __password: String,
+    __salt: String,
+    __email: String
 
 });
 
-class TeamMember{
-    constructor(name,lastName,curp,rfc,skills,rol,password,salt,email){
+class TeamMember {
+    constructor(name, lastName, curp, rfc, skills, rol, password, salt, email) {
         this.__name = name;
         this.__lastName = lastName;
         this.__curp = curp;
@@ -31,77 +31,79 @@ class TeamMember{
         this.__email = email;
         this.__salt = salt;
     }
+
     get name() {
-        return this._name;
+        return this.__name;
     }
-    
+
     set name(value) {
-        this._name = value;
+        this.__name = value;
     }
 
     get lastName() {
-        return this._lastName;
+        return this.__lastName;
     }
-    
+
     set lastName(value) {
-        this._lastName = value;
+        this.__lastName = value;
     }
 
     get curp() {
-        return this._curp;
+        return this.__curp;
     }
 
     set curp(value) {
-        this._curp = value;
+        this.__curp = value;
     }
 
     get rfc() {
-        return this._rfc;
+        return this.__rfc;
     }
 
     set rfc(value) {
-        this._rfc = value;
+        this.__rfc = value;
     }
 
     get skills() {
-        return this._skills;
+        return this.__skills;
     }
 
     set skills(value) {
-        this._skills = value;
+        this.__skills = value;
     }
 
     get rol() {
-        return this._rol;
+        return this.__rol;
     }
 
     set rol(value) {
-        this._rol = value;
+        this.__rol = value;
     }
 
-    get email(){
-        return this._email;
+    get email() {
+        return this.__email;
     }
 
-    set email(v){
-        this._email = v;
+    set email(v) {
+        this.__email = v;
     }
 
-    get password(){
-        return this._password;
+    get password() {
+        return this.__password;
     }
 
-    set password(v){
-        this._password = v;
+    set password(v) {
+        this.__password = v;
     }
 
-    get salt(){
-        return this._salt;
+    get salt() {
+        return this.__salt;
     }
 
-    set salt(v){
-        this._salt = v;
+    set salt(v) {
+        this.__salt = v;
     }
-};
+}
+
 schema.loadClass(TeamMember);
 module.exports = mongoose.model('TeamMember', schema);

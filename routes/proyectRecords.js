@@ -1,17 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/proyectRecords');
+const { authorize } = require('../middlewares/authorization');
 
-router.get('/', controller.list);
+router.get('/', authorize('read', 'ProjectRecord'), controller.list);
 
-router.get('/:id', controller.index);
+router.get('/:id', authorize('read', 'ProjectRecord'), controller.index);
 
-router.post('/',controller.create);
+router.post('/', authorize('create', 'ProjectRecord'), controller.create);
 
-router.put('/:id',controller.replace);
+router.put('/:id', authorize('update', 'ProjectRecord'), controller.replace);
 
-router.patch('/:id',controller.update);
+router.patch('/:id', authorize('update', 'ProjectRecord'), controller.update);
 
-router.delete('/:id',controller.destroy);
+router.delete('/:id', authorize('delete', 'ProjectRecord'), controller.destroy);
 
 module.exports = router;
