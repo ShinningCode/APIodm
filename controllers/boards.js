@@ -3,10 +3,10 @@ const Board = require('../models/board');
 
 function list(req, res, next) {
     Board.find().then(objs => res.status(200).json({
-        message: res.__('ok.board'),
+        message: res.__('Board.list'),
         obj: objs
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.board'),
+        message: res.__('Board.noInfo'),
         obj: ex
     }));
 }
@@ -14,10 +14,10 @@ function list(req, res, next) {
 function index(req, res, next) {
     const id = req.params.id;
     Board.findOne({"_id":id}).then(obj => res.status(200).json({
-        message: res.__('ok.board'), 
+        message: res.__('Board.found'), 
         obj: obj
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.board'),
+        message: res.__('Board.noFound'),
         obj:ex
     }));
 }
@@ -32,10 +32,10 @@ function create(req, res, next) {
     });
 
     board.save().then(obj => res.status(200).json({
-        message: res.__('ok.board'),
+        message: res.__('Board.created'),
         obj:obj
     })).catch(ex => res.status(500).json({
-        message: res.__('bad.board'),
+        message: res.__('Board.noCreated'),
         ex:ex
     }));
 }
@@ -52,10 +52,10 @@ function replace(req, res, next) {
     
     Board.findOneAndUpdate({"_id":id},rol,{new : true})
             .then(obj => res.status(200).json({
-                message: res.__('ok.board'),
+                message: res.__('Board.replaced'),
                 obj: obj
             })).catch(ex => res.status(500).json({
-                message: res.__('bad.board'),
+                message: res.__('Board.noReplaced'),
                 obj:ex
             }));
 }
@@ -75,10 +75,10 @@ function update(req, res, next) {
 
     Board.findOneAndUpdate({"_id":id}, board, {new:true})
         .then(obj => res.status(200).json({
-            message: res.__('ok.board'),
+            message: res.__('Board.updated'),
             obj: obj
         })).catch(ex => res.status(500).json({
-            message: res.__('bad.board'),
+            message: res.__('Board.noUpdated'),
             obj: ex
         }))
 
@@ -88,10 +88,10 @@ function destroy(req, res, next) {
     const id = req.params.id;
     Board.findByIdAndRemove({"_id":id})
             .then(obj => res.status(200).json({
-                message: res.__('ok.board'),
+                message: res.__('Board.deleted'),
                 obj:obj
             })).catch(ex => res.status(500).json({
-                message: res.__('bad.board'),
+                message: res.__('Board.noDeleted'),
                 obj:ex
             }));
 }
