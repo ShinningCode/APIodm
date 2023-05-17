@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.0",
     "log4js": "^6.9.1",
     "mongoose": "^7.1.0",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2"
   }
 }
