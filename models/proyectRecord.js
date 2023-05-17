@@ -22,7 +22,7 @@ const schema = mongoose.Schema({
     __status:Boolean
 });
 
-class ProjectRecord {
+class ProjectRecord{
     constructor(name, requestDate, startDate, projectManager, productOwner, developmentTeam, description, status) {
         this.__name = name;
         this.__requestDate = requestDate;

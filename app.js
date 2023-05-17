@@ -13,12 +13,11 @@ const cors = require('cors');
 //rutas de routers
 const indexRouter = require('./routes/index');
 const teamMemberRouter = require('./routes/teamMember');
-const backlogsRouter = require('./routes/backlogs');
 const boardsRouter = require('./routes/boards');
 const columnsRouter = require('./routes/columns');
 const proyectRecordRouter = require('./routes/proyectRecords');
 const userHistoryRouter = require('./routes/userHistory');
-
+const backlogsRouter = require('./routes/backlogs');
 
 //jwt
 const jwtKey = config.get('secret.key')
@@ -71,8 +70,6 @@ app.use('/boards',boardsRouter);
 app.use('/colums',columnsRouter);
 app.use('/proyectRecords',proyectRecordRouter);
 app.use('/userHistory',userHistoryRouter);
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
