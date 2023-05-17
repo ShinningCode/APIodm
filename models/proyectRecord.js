@@ -1,37 +1,37 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    __name:String,
-    __requestDate:Date,
-    __startDate:Date,
-    __proyectManager:{
+    _name:String,
+    _requestDate:Date,
+    _startDate:Date,
+    _proyectManager:{
         type:mongoose.Schema.ObjectId,
         ref:'TeamMember'
     },
-    __productOwner:{
+    _productOwner:{
         type:mongoose.Schema.ObjectId,
         ref:'TeamMember'
     },
-    __DevelopmentTeam:[
+    _DevelopmentTeam:[
         {
             type:mongoose.Schema.ObjectId,
             ref:'TeamMember'
         }
     ],
-    __description:String,
-    __status:Boolean
+    _description:String,
+    _status:Boolean
 });
 
 class ProjectRecord{
     constructor(name, requestDate, startDate, projectManager, productOwner, developmentTeam, description, status) {
-        this.__name = name;
-        this.__requestDate = requestDate;
-        this.__startDate = startDate;
-        this.__projectManager = projectManager;
-        this.__productOwner = productOwner;
-        this.__developmentTeam = developmentTeam;
-        this.__description = description;
-        this.__status = status;
+        this._name = name;
+        this._requestDate = requestDate;
+        this._startDate = startDate;
+        this._projectManager = projectManager;
+        this._productOwner = productOwner;
+        this._developmentTeam = developmentTeam;
+        this._description = description;
+        this._status = status;
     }
 
     get name() {

@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    __title:String,
-    __histories:[
+    _title:String,
+    _histories:[
         {
             type:mongoose.Schema.ObjectId,
             ref:'UserHistory'
         }
     ],
-    __BackLogtype:{
+    _BackLogtype:{
         type:String,
         enum:['Sprint','Release','Product']
     }
@@ -16,9 +16,9 @@ const schema = mongoose.Schema({
 
 class Backlog {
     constructor(title, histories, backLogType) {
-        this.__title = title;
-        this.__histories = histories;
-        this.__backLogType = backLogType;
+        this._title = title;
+        this._histories = histories;
+        this._backLogType = backLogType;
     }
 
     get title() {

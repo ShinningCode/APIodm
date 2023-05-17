@@ -1,35 +1,35 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    __name:String,
-    __lastName:String,
-    __curp:String,
-    __rfc:String,
-    __skills:{
+    _name:String,
+    _lastName:String,
+    _curp:String,
+    _rfc:String,
+    _skills:{
         type:String,
         enum:['Junio','Senior','Master']
     },
-    __rol:{
+    _rol:{
         type:String,
         enum:['ScrumMaster','ProductOwner','Developer']
     },
-    __password:String,
-    __salt:String,
-    __email:String
+    _password:String,
+    _salt:String,
+    _email:String
 
 });
 
 class TeamMember{
     constructor(name,lastName,curp,rfc,skills,rol,password,salt,email){
-        this.__name = name;
-        this.__lastName = lastName;
-        this.__curp = curp;
-        this.__rfc = rfc;
-        this.__skills = skills;
-        this.__rol = rol;
-        this.__password = password;
-        this.__email = email;
-        this.__salt = salt;
+        this._name = name;
+        this._lastName = lastName;
+        this._curp = curp;
+        this._rfc = rfc;
+        this._skills = skills;
+        this._rol = rol;
+        this._password = password;
+        this._email = email;
+        this._salt = salt;
     }
     get name() {
         return this._name;

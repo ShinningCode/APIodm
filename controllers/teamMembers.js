@@ -1,8 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const TeamMember = require('../models/teamMember');
-const log4js = require('log4js');
-const logger = log4js.getLogger();
 
 async function create(req, res, next) {
     
@@ -21,7 +19,7 @@ async function create(req, res, next) {
 
     const passwordHash = await bcrypt.hash(password, salt);
 
-    let teamMember = new User({
+    let teamMember = new TeamMember({
         name: name,
         lastName: lastName,
         email: email,
@@ -31,22 +29,15 @@ async function create(req, res, next) {
         rfc:rfc,
         skills:skills,
         rol:rol
-
     });
     
-    teamMember.save().then(obj => {
-        logger.level('info');
-        logger.info(res.__('user.create'));
-        res.status(200).json({
+    teamMember.save().then(obj => res.status(200).json({
         message: res.__("user.create"),
         obj: obj
-        })}).catch(ex => {
-            logger.level('error');
-            logger.error(res.__('user.error'));
-            res.status(500).json({
+        })).catch(ex => res.status(500).json({
             message: res.__("user.notcreate"),
             obj: ex
-        })});
+        }));
 }
 
 

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    __name:String,
-    __columns:[
+    _name:String,
+    _columns:[
         {
             type:mongoose.Schema.ObjectId,
             ref:'Column'
@@ -12,8 +12,8 @@ const schema = mongoose.Schema({
 
 class Board {
     constructor(name, columns) {
-        this.__name = name;
-        this.__columns = columns;
+        this._name = name;
+        this._columns = columns;
     }
 
     get name() {

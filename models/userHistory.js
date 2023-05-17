@@ -1,29 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema({
-    __name:String,
-    __context:String,
-    __rol:String,
-    __benefit:String,
-    __piority:Int16Array,
-    __size:Int16Array,
-    __event:[String],
-    __result:[String],
-    __status:Boolean,
-    __colum:Int16Array
+    _name:String,
+    _context:String,
+    _rol:String,
+    _benefit:String,
+    _piority:Int16Array,
+    _size:Int16Array,
+    _event:[String],
+    _result:[String],
+    _status:Boolean,
+    _colum:Int16Array
 });
 
 class UserHistory {
     constructor(name, context, rol, benefit, priority, size, event, result, status, column) {
-        this.__name = name;
-        this.__context = context;
-        this.__rol = rol;
-        this.__benefit = benefit;
-        this.__priority = priority;
-        this.__size = size;
-        this.__event = event;
-        this.__result = result;
-        this.__status = status;
-        this.__column = column;
+        this._name = name;
+        this._context = context;
+        this._rol = rol;
+        this._benefit = benefit;
+        this._priority = priority;
+        this._size = size;
+        this._event = event;
+        this._result = result;
+        this._status = status;
+        this._column = column;
     }
 
     get name() {
