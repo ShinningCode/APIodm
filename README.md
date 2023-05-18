@@ -15,8 +15,8 @@ Internacionalización y localización
 También se han construido pruebas utilizando JEST y Super Test para cada ruta del proyecto, cumpliendo con la regla del 50%. Adicionalmente, la aplicación se ha comunicado con el PaaS de Mongodb Atlas.
 
 ### Dirección del servidor web de producción
-La dirección del servidor web de producción se encuentra en: dirección_del_servidor_web.
-
+La dirección del servidor web de producción se encuentra en:
+https://scrumproyect-jangelcepeda.b4a.run/
 ### Diagrama de secuencia
 A continuación se presenta el diagrama de secuencia correspondiente a nuestro proyecto:
 ![Diagrama de Secuencia](https://github.com/ShinningCode/APIodm/assets/119389819/3b8f4db2-9995-4b2f-a069-78aa096f10f0)
