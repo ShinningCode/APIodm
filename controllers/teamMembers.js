@@ -13,7 +13,6 @@ async function create(req, res, next) {
     let skills = req.body.skills;
     let rol = req.body.rol;
 
-
     //Generar el salt con las iteraciones para generar la cadena
     const salt = await bcrypt.genSalt(10);
 
@@ -30,6 +29,8 @@ async function create(req, res, next) {
         skills:skills,
         rol:rol
     });
+
+    console.log(teamMember);
     
     teamMember.save().then(obj => res.status(200).json({
         message: res.__("user.create"),

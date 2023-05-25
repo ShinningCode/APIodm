@@ -52,9 +52,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(i18n.init);
 
-app.use(cors({
-  origin:"http://127.0.0.1:8000"
-}));
+app.use(cors());
 
 //protecion de rutas
 
