@@ -7,7 +7,7 @@ const schema = mongoose.Schema({
     _rfc:String,
     _skills:{
         type:String,
-        enum:['Junio','Senior','Master']
+        enum:['Junior','Senior','Master']
     },
     _rol:{
         type:String,
