@@ -64,7 +64,7 @@ app.use(cors({
 
 //declaración de rutas
 app.use('/', indexRouter);
-app.use('/teamMember', teamMemberRouter);
+app.use('/teamMembers', teamMemberRouter);
 app.use('/backlogs',backlogsRouter);
 app.use('/boards',boardsRouter);
 app.use('/colums',columnsRouter);
