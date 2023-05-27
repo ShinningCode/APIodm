@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema({
+
+const schema = mongoose.Schema({
     _name:String,
     _context:String,
     _rol:String,
