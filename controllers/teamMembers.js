@@ -2,6 +2,27 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const TeamMember = require('../models/teamMember');
 
+
+function list(req,res,next){
+    TeamMember.find().then(objs = res.status(200).json({
+        message: res.__('Members.list'),
+        obj:objs
+    })).catch(ex => res.status(500).json({
+        message: res.__('Members.noInfo'),
+        obj:ex
+    }))
+}
+
+function index(req,res,next){
+    TeamMember.findOne({"_id":id}).then(obj = res.status(200).json({
+        message: res.__('Member.found'),
+        obj:obj
+    })).catch(ex => res.status(500).json({
+        message: res.__('Members.nofound'),
+        obj:ex
+    }))
+}
+
 async function create(req, res, next) {
     
     let name = req.body.name;
@@ -98,5 +119,7 @@ async function destroy(req, res, next) {
 module.exports = { 
     create,
     update,
-    destroy
+    destroy,
+    list,
+    index
 };
