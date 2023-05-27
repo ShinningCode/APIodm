@@ -1,5 +1,6 @@
 const express = require('express');
 const Backlog = require('../models/backlogs');
+const UserHistory = require('../models/userHistory');
 
 async function getAllBacklog(req, res){
     try{

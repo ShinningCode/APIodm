@@ -1,5 +1,6 @@
 const express = require('express');
 const Board = require('../models/board');
+const Columns = require('../models/column');
 
 function list(req, res, next) {
     Board.find().then(objs => res.status(200).json({
@@ -22,13 +23,21 @@ function index(req, res, next) {
     }));
 }
 
-function create(req, res, next) {
+async function create(req, res, next) {
     let name = req.body.name;
-    let columna = req.body.columns;
+    let columnsIds = req.body.columnsIds;
+    columns = []
+
+    columnsIds.forEach(async (columnId) => {
+        const column = await Columns.findOne({"_id":columnId});
+        if(column){
+            columns.push(column);
+        }
+    });
 
     let board = new Board({
-        name: name,
-        columna: columna
+        name:name,
+        columns:columns
     });
 
     board.save().then(obj => res.status(200).json({
@@ -43,11 +52,19 @@ function create(req, res, next) {
 function replace(req, res, next) {
     const id = req.params.id;
     let name = req.body.name ? req.body.name : "";
-    let columna = req.body.columns ? req.body.columns: "";
+    let columnsIds = req.body.columnsIds ? req.body.columnsIds: "";
+
+    const columns = []
+    columnsIds.forEach(async (columnId) => {
+        const column = await Columns.findOne({"_id":columnId});
+        if(column){
+            columns.push(column);
+        }
+    });
 
     let rol = new Object({
         _name: name,
-        _columna: columna
+        _columns: columns
     });
     
     Board.findOneAndUpdate({"_id":id},rol,{new : true})
@@ -63,15 +80,23 @@ function replace(req, res, next) {
 function update(req, res, next) {
    const id = req.params.id;
    let name = req.body.name;
-   let columna = req.body.columns;
+   let columnsIds = req.body.columnsIds;
+   const columns = []
+   columnsIds.forEach(async (columnId) => {
+       const column = await Columns.findOne({"_id":columnId});
+       if(column){
+           columns.push(column);
+       }
+   });
+
 
    let board = new Object();
 
    if(name)
        board._name = name;
 
-    if(columna)
-        board._columna = columna
+    if(columns)
+        board._columns = columns
 
     Board.findOneAndUpdate({"_id":id}, board, {new:true})
         .then(obj => res.status(200).json({

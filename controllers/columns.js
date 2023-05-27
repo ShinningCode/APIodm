@@ -1,7 +1,7 @@
 const express = require('express');
 const Column = require('../models/column');
 const Backlog = require('../models/backlogs');
-const backlogs = require('../models/backlogs');
+
 
 function list(req, res, next) {
     Column.find().then(objs => res.status(200).json({
@@ -39,7 +39,7 @@ async function create(req, res, next){
 
     let column = new Column({
         title:title,
-        stories:histories
+        histories:histories
     });
 
     column.save().then(obj => res.status(200).json({
@@ -145,7 +145,6 @@ async function deleteHistory(req, res, next){
     let historyId = req.body.historyId;
 
     let column = await Column.findOne({"_id": columnId});
-    let history = await backlogs.findOne({"_id": historyId});
 
     let index = 0;
     //Se comparan los ids del arreglo con el recibido por el body, si coincide se elimina
@@ -183,5 +182,7 @@ module.exports = {
     create,
     replace,
     update,
-    destroy
+    destroy,
+    addHistories,
+    deleteHistory
 };
