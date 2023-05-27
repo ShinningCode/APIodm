@@ -4,12 +4,12 @@ const Schema = mongoose.Schema({
     _context:String,
     _rol:String,
     _benefit:String,
-    _piority:Int16Array,
-    _size:Int16Array,
+    _piority:Number,
+    _size:Number,
     _event:[String],
     _result:[String],
     _status:Boolean,
-    _colum:Int16Array
+    _colum:Number
 });
 
 class UserHistory {

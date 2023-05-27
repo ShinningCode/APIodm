@@ -1,6 +1,7 @@
 const express = require('express');
 const Column = require('../models/column');
 const Backlog = require('../models/backlogs');
+const backlogs = require('../models/backlogs');
 
 function list(req, res, next) {
     Column.find().then(objs => res.status(200).json({
@@ -26,11 +27,15 @@ function index(req, res, next) {
 
 async function create(req, res, next){
     const title = req.body.title;
-    const historyId = req.body.historyId;
+    const historiesIds = req.body.historiesIds;
     const histories = [];
-    let history = await Backlog.findOne({"_id": historyId});
-
-    histories.push(history);
+    
+    historiesIds.forEach( async (historyId) => {
+        const history = await Backlog.findOne({"_id": historyId});
+        if(history){
+            histories.push(history);
+        }
+    });
 
     let column = new Column({
         title:title,
@@ -47,12 +52,21 @@ async function create(req, res, next){
 }
 
 function replace(req, res, next) {
-    const historyId = req.body.historyId ? req.body.historyId: "";
+    const id = req.params.id
+    const historiesIds = req.body.historiesIds ? req.body.historyIds: "";
     const title = req.body.title ? req.body.title: "";
+
+    const histories = []
+    historiesIds.forEach( async (historyId) => {
+        const history = await Backlog.findOne({"_id": historyId});
+        if(history){
+            histories.push(history);
+        }
+    });
 
     let Column = new Object({
         _title: title,
-        _historyId: historyId
+        _histories: histories
     });
     
     Column.findOneAndUpdate({"_id":id},Column,{new : true})
@@ -68,15 +82,25 @@ function replace(req, res, next) {
 function update(req, res, next) {
    const historyId = req.params.historyId;
    let title = req.body.title;
+   let historiesIds = req.body.historiesIds;
 
-   let Column = new Object();
+   let column = new Object();
+   const histories = []
+   historiesIds.forEach( async (historyId) => {
+       const history = await Backlog.findOne({"_id": historyId});
+       if(history){
+           histories.push(history);
+       }
+   });
 
-   if(description){
-    Column._title = title;
-    Column._historyId = historyId;
+   if(title){
+    column._title = title;
+   }
+   if(historiesIds){
+    column._histories = histories;
    }
 
-    Column.findOneAndUpdate({"_id":id}, Column)
+    Column.findOneAndUpdate({"_id":id}, column)
         .then(obj => res.status(200).json({
             message: res.__('Column.updated'),
             obj: obj
@@ -105,7 +129,7 @@ async function addHistories(req, res, next){
 
     let column = await Column.findOne({"_id": columnId});
     let history = await History.findOne({"_id": historyId});
-    column.stories.push(history);
+    column.histories.push(history);
     column.save().then(obj => res.status(200).json({
         message:'History.added',
         obj:obj
@@ -121,17 +145,17 @@ async function deleteHistory(req, res, next){
     let historyId = req.body.historyId;
 
     let column = await Column.findOne({"_id": columnId});
-    let history = await History.findOne({"_id": historyId});
+    let history = await backlogs.findOne({"_id": historyId});
 
     let index = 0;
     //Se comparan los ids del arreglo con el recibido por el body, si coincide se elimina
-    for(let i of column.stories){
-        if (column.stories[i]._id == historyId){
+    for(let i of column.histories){
+        if (column.histories[i]._id == historyId){
             index = i;
         }
     }
     try{
-        column.stories.splice(index,1);
+        column.histories.splice(index,1);
         column.save().then(obj => res.status(200).json({
             message:res.__('History.deleted'),
             obj:obj

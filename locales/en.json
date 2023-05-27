@@ -58,5 +58,8 @@
     "user.update": "User updated",
     "user.notupdate": "Unnable to update user",
     "user.delete": "User deleted",
-    "user.notdeleted": "Unnable to delete user"
+    "user.notdeleted": "Unnable to delete user",
+    "user.list":"List of users",
+    "user.noInfo":"No info about users list"
+
 }

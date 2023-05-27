@@ -6,6 +6,7 @@ const schema = mongoose.Schema({
         ref:'Backlog'
     }]
 });
+
 class Column {
     constructor(title, histories) {
         this._title = title;

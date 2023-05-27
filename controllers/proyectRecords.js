@@ -108,7 +108,7 @@ function replace(req, res, next) {
     let projectOwnerId = req.body.projectOwnerId;
     let team = req.body.team;
   
-    let project = {};
+    let project = new Object;
   
     if (projectName)
       project._proyectName = projectName;
