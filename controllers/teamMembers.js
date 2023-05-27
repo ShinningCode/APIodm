@@ -4,7 +4,7 @@ const TeamMember = require('../models/teamMember');
 
 
 function list(req,res,next){
-    TeamMember.find().then(objs = res.status(200).json({
+    TeamMember.find().then(objs => res.status(200).json({
         message: res.__('Members.list'),
         obj:objs
     })).catch(ex => res.status(500).json({
