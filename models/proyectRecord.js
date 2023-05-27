@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    _name:String,
+    _proyectName:String,
     _requestDate:Date,
     _startDate:Date,
     _proyectManager:{
@@ -12,7 +12,7 @@ const schema = mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'TeamMember'
     },
-    _DevelopmentTeam:[
+    _developmentTeam:[
         {
             type:mongoose.Schema.ObjectId,
             ref:'TeamMember'
