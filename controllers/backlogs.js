@@ -15,7 +15,15 @@ async function getAllBacklog(req, res){
 
 async function createBacklog(req,res){
     try{
-        const { __title, __histories, __BackLogtype } = req.body;
+        const { __title, __historiesIds, __BackLogtype } = req.body;
+        __histories = []
+        __historiesIds.forEach(async (historyId) => {
+            const history = await UserHistory.findOne({"_id":historyId});
+            if(history){
+              __histories.push(history)
+            }    
+          }
+        )
         const backlogs = new Backlog({ __title, __histories, __BackLogtype  });
         const savedBacklogItem = await backlogs.save();
         res.status(201).json(savedBacklogItem);
@@ -27,7 +35,15 @@ async function createBacklog(req,res){
 async function updateBacklog(req, res) {
     try {
       const { id } = req.params;
-      const { __title, __histories, __BackLogtype  } = req.body;
+      const { __title, __historiesIds, __BackLogtype  } = req.body;
+      __histories = []
+      __historiesIds.forEach(async (historyId) => {
+          const history = await UserHistory.findOne({"_id":historyId});
+          if(history){
+            __histories.push(history)
+          }    
+        }
+      )
       const updatedBacklog = await Backlog.findByIdAndUpdate(
           id,
           { __title, __histories, __BackLogtype },
