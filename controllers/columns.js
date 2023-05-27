@@ -27,19 +27,12 @@ function index(req, res, next) {
 
 async function create(req, res, next){
     const title = req.body.title;
-    const historiesIds = req.body.historiesIds;
-    const histories = [];
+    const backlogsIds = req.body.backlogsIds;
+    let backlogs = [backlogsIds]
     
-    historiesIds.forEach( async (historyId) => {
-        const history = await Backlog.findOne({"_id": historyId});
-        if(history){
-            histories.push(history);
-        }
-    });
-
     let column = new Column({
         title:title,
-        histories:histories
+        backlogs:backlogs
     });
 
     column.save().then(obj => res.status(200).json({

@@ -56,5 +56,7 @@
 	"user.notdeleted": "Unnable to delete user",
 	"user.list": "List of users",
 	"user.noInfo": "No info about users list",
-	"Members.list": "Members.list"
+	"Members.list": "Members.list",
+	"History.create": "History.create",
+	"Column.created": "Column.created"
 }

@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
+
 const schema = mongoose.Schema({
     _title:String,
-    _histories:[{
+    _backlogs:[{
         type:mongoose.Schema.ObjectId,
         ref:'Backlog'
     }]
 });
 
 class Column {
-    constructor(title, histories) {
+    constructor(title, backlogs) {
         this._title = title;
-        this._histories = histories;
+        this._backlogs = backlogs;
     }
 
     get title() {
@@ -21,12 +22,12 @@ class Column {
         this._title = value;
     }
 
-    get histories() {
-        return this._histories;
+    get backlogs() {
+        return this._backlogs;
     }
 
-    set histories(value) {
-        this._histories = value;
+    set backlogs(value) {
+        this._backlogs = value;
     }
 };
 

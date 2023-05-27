@@ -3,7 +3,7 @@ const UserHistory = require('../models/userHistory');
 
 
 function list(req, res, next) {
-    Project.UserHistory().then(objs => res.status(200).json({
+    UserHistory.find().then(objs => res.status(200).json({
         message: res.__('user.list'),
         obj: objs
     })).catch(ex => res.status(500).json({

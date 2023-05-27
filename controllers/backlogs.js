@@ -13,18 +13,12 @@ async function getAllBacklog(req, res){
     }
 }
 
-async function createBacklog(req,res){
+async function createBacklog(req,res,next){
     try{
-        const { __title, __historiesIds, __BackLogtype } = req.body;
-        __histories = []
-        __historiesIds.forEach(async (historyId) => {
-            const history = await UserHistory.findOne({"_id":historyId});
-            if(history){
-              __histories.push(history)
-            }    
-          }
-        )
-        const backlogs = new Backlog({ __title, __histories, __BackLogtype  });
+        title = req.body.title
+        histories = req.body.historiesIds;
+        backLogType = req.body.backLogType;
+        const backlogs = new Backlog({title,histories,backLogType});
         const savedBacklogItem = await backlogs.save();
         res.status(201).json(savedBacklogItem);
     } catch(err){

@@ -8,7 +8,7 @@ const schema = mongoose.Schema({
             ref:'UserHistory'
         }
     ],
-    _BackLogtype:{
+    _backLogType:{
         type:String,
         enum:['Sprint','Release','Product']
     }

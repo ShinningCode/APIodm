@@ -5,12 +5,12 @@ const schema = mongoose.Schema({
     _context:String,
     _rol:String,
     _benefit:String,
-    _piority:Number,
+    _priority:Number,
     _size:Number,
     _event:[String],
     _result:[String],
     _status:Boolean,
-    _colum:Number
+    _column:Number
 });
 
 class UserHistory {

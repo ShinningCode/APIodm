@@ -65,7 +65,7 @@ app.use('/', indexRouter);
 app.use('/teamMembers', teamMemberRouter);
 app.use('/backlogs',backlogsRouter);
 app.use('/boards',boardsRouter);
-app.use('/colums',columnsRouter);
+app.use('/columns',columnsRouter);
 app.use('/proyectRecords',proyectRecordRouter);
 app.use('/userHistory',userHistoryRouter);
 
