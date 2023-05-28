@@ -58,9 +58,8 @@ app.use(cors());
 
 //app.use(expressjwt({secret:jwtKey,algorithms:['HS256']}))
    //.unless({path:["/"]})
-
-
 //declaración de rutas
+
 app.use('/', indexRouter);
 app.use('/teamMembers', teamMemberRouter);
 app.use('/backlogs',backlogsRouter);

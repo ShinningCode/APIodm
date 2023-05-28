@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
     _proyectName:String,
-    _requestDate:Date,
-    _startDate:Date,
-    _proyectManager:{
+    _requestDate:String,
+    _startDate:String,
+    _projectManager:{
         type:mongoose.Schema.ObjectId,
         ref:'TeamMember'
     },
@@ -17,7 +17,8 @@ const schema = mongoose.Schema({
             type:mongoose.Schema.ObjectId,
             ref:'TeamMember'
         }
-    ],
+    ]
+    ,
     _description:String,
     _status:Boolean
 });

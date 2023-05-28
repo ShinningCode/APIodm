@@ -31,30 +31,16 @@ async function create(req, res, next) {
     let description = req.body.description;
     let projectManagerId = req.body.projectManagerId;
     let projectOwnerId = req.body.projectOwnerId;
-    let teamMembers = []
+    let teamMembers = req.body.teamMember;
     let status = req.body.status;
-    teamMembersIds = req.body.teamMembersIds;
-
-    projectManager = await TeamMember.findOne({"_id":projectManagerId});
-    projectOwner = await TeamMember.findOne({"_id":projectOwnerId});
-
-    teamMembersIds.forEach(async (id)=>{
-        try{
-            const teamMember = await TeamMember.findOne({"_id":id});
-            if(teamMember){
-                teamMember.push(teamMember);
-            }
-        }catch(err){
-            console.log(err);
-        }
-    })
+    
     let project = new Project({
         projectName:projectName, 
         requestDate:requestDate,
         startDate:startDate,
         description:description,
-        projectManager: projectManager,
-        projectOwner: projectOwner,
+        projectManager: projectManagerId,
+        productOwner: projectOwnerId,
         developmentTeam: teamMembers,
         status:status
     });
