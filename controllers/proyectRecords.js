@@ -43,8 +43,8 @@ async function create(req, res, next) {
       requestDate:requestDate,
       startDate:startDate,
       description:description,
-      projectManager: projectManager,
-      productOwner: productOwner,
+      projectManager: projectManagerId,
+      productOwner: productOwnerId,
       developmentTeam: developmentTeam,
       status:status
   });
