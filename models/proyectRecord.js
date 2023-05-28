@@ -40,7 +40,7 @@ class ProjectRecord{
     }
 
     set name(value) {
-        this._name = value;
+        this._projectName = value;
     }
 
     get requestDate() {
