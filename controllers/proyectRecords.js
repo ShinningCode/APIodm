@@ -31,9 +31,9 @@ async function create(req, res, next) {
     let description = req.body.description;
     let projectManagerId = req.body.projectManagerId;
     let projectOwnerId = req.body.projectOwnerId;
-    let teamMembers = req.body.teamMember;
+    let developmentTeam = req.body.developmentTeam;
     let status = req.body.status;
-    
+
     let project = new Project({
         projectName:projectName, 
         requestDate:requestDate,
@@ -41,7 +41,7 @@ async function create(req, res, next) {
         description:description,
         projectManager: projectManagerId,
         productOwner: projectOwnerId,
-        developmentTeam: teamMembers,
+        developmentTeam: developmentTeam,
         status:status
     });
 
