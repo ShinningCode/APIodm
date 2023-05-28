@@ -35,8 +35,8 @@ async function create(req, res, next) {
     let status = req.body.status;
 
 
-    let projectManager = await TeamMember.findOne({"_id":projectManagerId});
-    let productOwner = await TeamMember.findOne({"_id":productOwnerId});
+    //let projectManager = await TeamMember.findOne({"_id":projectManagerId});
+    //let productOwner = await TeamMember.findOne({"_id":productOwnerId});
 
     let project = new Project({
       projectName:projectName, 
