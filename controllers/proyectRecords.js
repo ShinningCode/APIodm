@@ -1,6 +1,6 @@
 const express = require('express');
 const Project = require('../models/proyectRecord');
-const TeamMember = require('../models/teamMember');
+//const TeamMember = require('../models/teamMember');
 
 function list(req, res, next) {
     Project.find().then(objs => res.status(200).json({
