@@ -2,8 +2,8 @@ const express = require('express');
 const Project = require('../models/proyectRecord');
 //const TeamMember = require('../models/teamMember');
 
-function list(req, res, next) {
-    Project.find().then(objs => res.status(200).json({
+function list(req, res, next){
+    Project.find().populate('_name _lastName _skills _rol').then(objs => res.status(200).json({
         message: res.__('Project.list'),
         obj: objs
     })).catch(ex => res.status(500).json({

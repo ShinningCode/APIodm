@@ -7,8 +7,8 @@ const schema = mongoose.Schema({
     _benefit:String,
     _priority:Number,
     _size:Number,
-    _event:[String],
-    _result:[String],
+    _event:String,
+    _result:String,
     _status:Boolean,
     _column:Number
 });
