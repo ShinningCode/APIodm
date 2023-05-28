@@ -30,20 +30,26 @@ async function create(req, res, next) {
     let startDate = req.body.startDate;
     let description = req.body.description;
     let projectManagerId = req.body.projectManagerId;
-    let projectOwnerId = req.body.projectOwnerId;
+    let productOwnerId = req.body.productOwnerId;
     let developmentTeam = req.body.developmentTeam;
     let status = req.body.status;
 
+
+    let projectManager = await TeamMember.findOne({"_id":projectManagerId});
+    let productOwner = await TeamMember.findOne({"_id":productOwnerId});
+
     let project = new Project({
-        projectName:projectName, 
-        requestDate:requestDate,
-        startDate:startDate,
-        description:description,
-        projectManager: projectManagerId,
-        productOwner: projectOwnerId,
-        developmentTeam: developmentTeam,
-        status:status
-    });
+      projectName:projectName, 
+      requestDate:requestDate,
+      startDate:startDate,
+      description:description,
+      projectManager: projectManager,
+      productOwner: productOwner,
+      developmentTeam: developmentTeam,
+      status:status
+  });
+
+
 
     project.save().then(obj => res.status(200).json({
         message: res.__('Project.created'),
