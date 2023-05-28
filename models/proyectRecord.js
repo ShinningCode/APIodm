@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const schema = mongoose.Schema({
-    _projectName:String,
+    _Name:String,
     _requestDate:String,
     _startDate:String,
     _projectManager:{
@@ -24,8 +24,8 @@ const schema = mongoose.Schema({
 });
 
 class ProjectRecord{
-    constructor(projectName, requestDate, startDate, projectManager, productOwner, developmentTeam, description, status) {
-        this._projectName = projectName;
+    constructor(Name, requestDate, startDate, projectManager, productOwner, developmentTeam, description, status) {
+        this._Name = Name;
         this._requestDate = requestDate;
         this._startDate = startDate;
         this._projectManager = projectManager;
@@ -35,12 +35,12 @@ class ProjectRecord{
         this._status = status;
     }
 
-    get projectName() {
-        return this._projectName;
+    get Name() {
+        return this._Name;
     }
 
-    set name(value) {
-        this._projectName = value;
+    set Name(value) {
+        this._Name = value;
     }
 
     get requestDate() {

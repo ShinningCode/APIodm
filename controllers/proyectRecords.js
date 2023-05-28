@@ -25,7 +25,7 @@ function index(req, res, next) {
 
 async function create(req, res, next) {
 
-    let projectName = req.body.projectName;
+    let Name = req.body.Name;
     let requestDate = req.body.requestDate;
     let startDate = req.body.startDate;
     let description = req.body.description;
@@ -39,7 +39,7 @@ async function create(req, res, next) {
     //let productOwner = await TeamMember.findOne({"_id":productOwnerId});
 
     let project = new Project({
-      projectName:projectName, 
+      Name:Name, 
       requestDate:requestDate,
       startDate:startDate,
       description:description,
