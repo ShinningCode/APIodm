@@ -24,6 +24,7 @@ function index(req,res,next){
 }
 
 function create(req,res,next){
+
     let name     = req.body.name
     let context  = req.body.context
     let rol      = req.body.rol

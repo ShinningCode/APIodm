@@ -3,7 +3,7 @@ const Project = require('../models/proyectRecord');
 //const TeamMember = require('../models/teamMember');
 
 function list(req, res, next){
-    Project.find().then(objs => res.status(200).json({
+    Project.find().populate("_projectManager _productOwner _developmentTeam").then(objs => res.status(200).json({
         message: res.__('Project.list'),
         obj: objs
     })).catch(ex => res.status(500).json({
@@ -14,7 +14,7 @@ function list(req, res, next){
 
 function index(req, res, next) {
     const id = req.params.id;
-    Project.findOne({"_id":id}).then(obj => res.status(200).json({
+    Project.findOne({"_id":id}).populate("_projectManager _productOwner _developmentTeam").then(obj => res.status(200).json({
         message: res.__('Project.found'),
         obj: obj
     })).catch(ex => res.status(500).json({
