@@ -4,7 +4,7 @@ const UserHistory = require('../models/userHistory');
 
 async function getAllBacklog(req, res){
     try{
-        const backlogs = await Backlog.find();
+        const backlogs = await Backlog.find().populate("_histories");
         res.status(200).json(backlogs);
     } catch(err){
         res.status(500).json({

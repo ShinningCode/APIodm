@@ -4,7 +4,7 @@ const Backlog = require('../models/backlogs');
 
 
 function list(req, res, next) {
-    Column.find().then(objs => res.status(200).json({
+    Column.find().populate('_backlogs').then(objs => res.status(200).json({
         message: res.__('Column.list'),
         obj: objs
     })).catch(ex => res.status(500).json({
@@ -27,8 +27,8 @@ function index(req, res, next) {
 
 async function create(req, res, next){
     const title = req.body.title;
-    const backlogsIds = req.body.backlogsIds;
-    let backlogs = [backlogsIds]
+    const backlogs = req.body.backlogsIds;
+    
     
     let column = new Column({
         title:title,
